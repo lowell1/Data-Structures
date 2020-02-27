@@ -78,12 +78,54 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        pass
+       # print(node.value)
+        # print(node.left.value)
+        # print(node.right.value)
+
+        # if node.left:
+        #     self.in_order_print(node.left)
+
+        # if node.right:
+        #     self.in_order_print(node.right)
+
+        # if node.left and node.right:
+        #     return self.in_order_print(node.left) + [node.value] + self.in_order_print(node.right)
+        # elif node.left:
+        #     return self.in_order_print(node.left) + [node.value]
+        # elif node.right:
+        #     return [node.value] + self.in_order_print(node.right)
+        # else:
+        #     return [node.value]
+
+        def recurse(node):
+            if node.left and node.right:
+                return recurse(node.left) + [node.value] + recurse(node.right)
+            elif node.left:
+                return recurse(node.left) + [node.value]
+            elif node.right:
+                return [node.value] + recurse(node.right)
+            else:
+                return [node.value]
+
+        [print(val) for val in recurse(node)]
+        
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        queue = Queue()
+        queue.enqueue(node)
+
+        while len(queue) > 0:
+            cur_node = queue.dequeue()
+            print(cur_node.value)
+            
+            if cur_node.left:
+                queue.enqueue(cur_node.left)
+
+            if cur_node.right:
+                queue.enqueue(cur_node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
