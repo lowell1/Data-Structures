@@ -3,6 +3,12 @@ sys.path.append('../queue_and_stack')
 from dll_queue import Queue
 from dll_stack import Stack
 
+# class Node:
+#     def __init__(self, val, left = None, right = None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
 
 class BinarySearchTree:
     def __init__(self, value):
@@ -12,21 +18,60 @@ class BinarySearchTree:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        cur_node = self
+
+        while True:
+            if value < cur_node.value:
+                if cur_node.left is None:
+                    cur_node.left =  BinarySearchTree(value)
+                    break
+                else:
+                    cur_node = cur_node.left
+            else:
+                if cur_node.right is None:
+                    cur_node.right =  BinarySearchTree(value)
+                    break
+                else:
+                    cur_node = cur_node.right
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        cur_node = self
+
+        while cur_node is not None:
+            if target == cur_node.value:
+                return True
+            elif target < cur_node.value:
+                cur_node = cur_node.left
+            else:
+                cur_node = cur_node.right
+
+        return False
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        cur_node = self
+        # max_num = self.value
+
+        while cur_node.right is not None:
+            cur_node = cur_node.right
+
+        return cur_node.value
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
     def for_each(self, cb):
-        pass
+        def recurse(node):
+            cb(node.value)
+
+            if node.left:
+                recurse(node.left)
+            
+            if node.right:
+                recurse(node.right)
+
+        recurse(self)
 
     # DAY 2 Project -----------------------
 
